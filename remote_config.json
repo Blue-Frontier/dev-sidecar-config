@@ -172,7 +172,11 @@
       "^(?<pre>.*).googlevideo.com$": {
         "*": {
           "proxy_backup": "${pre}.gvt1.com",
-          "sni": "g.cn"
+          "sni": "g.cn",
+          "options": true
+        },
+        "/generate_204": {
+          "success": true
         }
       },
       "www.gstatic.com": {
