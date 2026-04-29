@@ -545,7 +545,7 @@
 			}
 		},
 		"node": {
-			"enabled": true,
+			"enabled": false,
 			"setting": {
 				"command": "pnpm",
 				"registry": "https://registry.npmmirror.com",
