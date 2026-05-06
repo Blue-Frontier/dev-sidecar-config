@@ -1,7 +1,7 @@
 {
   "app": {
     "remoteConfig": {
-      "url": "https://gitee.com/wangliang181230/dev-sidecar-config/raw/main/remote_config.json"
+      "url": "https://raw.giteeusercontent.com/wangliang181230/dev-sidecar-config/raw/main/remote_config.json"
     },
     //配置编辑时间、版本信息
     "metaInfo": {
@@ -25,8 +25,8 @@
       // github相关
       "github.com": {
         "^(/[^/]+){2,}/?(\\?.*)?$": {
-          "tampermonkeyScript": "https://gitee.com/wangliang181230/dev-sidecar-config/raw/main/tampermonkey.js",
-          "script": "https://gitee.com/wangliang181230/dev-sidecar-config/raw/main/GithubEnhanced-High-Speed-Download.user.js",
+          "tampermonkeyScript": "https://raw.giteeusercontent.com/wangliang181230/dev-sidecar-config/raw/main/tampermonkey.js",
+          "script": "https://raw.giteeusercontent.com/wangliang181230/dev-sidecar-config/raw/main/GithubEnhanced-High-Speed-Download.user.js",
           "remark": "注：上面所使用的脚本地址，为高速镜像地址。",
           "desc": "油猴脚本：高速下载 Git Clone/SSH、Release、Raw、Code(ZIP) 等文件 (公益加速)、项目列表单文件快捷下载、添加 git clone 命令"
         },
@@ -186,7 +186,11 @@
       "^(?<pre>.*).googlevideo.com$": {
         "*": {
           "proxy_backup": "${pre}.gvt1.com",
-          "sni": "g.cn"
+          "sni": "g.cn",
+          "options": true
+        },
+        "/generate_204": {
+          "success": true
         }
       },
       "www.gstatic.com": {
@@ -526,10 +530,10 @@
       },
       // Docker Hub
       "hub.docker.com": {
-        "144.34.172.106": false,
+        "144.34.172.106": true,
         "69.63.207.139": false,
         // 疑似源站IP
-        "47.236.233.96": true,
+        "47.236.233.96": false,
         // 已失效的IP
         "54.156.14.194": null,
         "54.208.73.48": null,
