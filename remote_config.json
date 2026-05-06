@@ -7,8 +7,8 @@
     "metaInfo": {
       // 元数据就放在这里了
       "id": "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      "version": 202604241421, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      "updateLog": "狠狠薅了一波mirrors.ustc.edu.cn的反代羊毛" // 我真的不觉得这个字段有多大必要
+      "version": 202605070336, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      "updateLog": "修复了谷歌相关样式和图标无法正常加载的问题" // 我真的不觉得这个字段有多大必要
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -137,9 +137,23 @@
         }
       },
       // google相关
-      "fonts.(googleapis|gstatic).com": {
+      "fonts.googleapis.com": {
         ".*": {
-          "proxy": "fonts.googleapis.cn"
+          "proxy": "fonts.googleapis.cn",
+          "backup": ["fonts.loli.net"],
+          "test": "https://fonts.googleapis.com/css?family=Oswald"
+        }
+      },
+      "fonts.gstatic.com": {
+        ".*": {
+          "proxy": "fonts-gstatic.proxy.ustclug.org",
+          "backup": ["gstatic.loli.net"],
+          "test": "https://fonts.googleapis.com/css?family=Oswald"
+        }
+      },
+      "*.googleapis.com": {
+        ".*": {
+          "sni": "www.google.cn"
         }
       },
       "ajax.googleapis.com": {
@@ -279,9 +293,7 @@
       "cdn.jsdelivr.net": {
         "^/.*\\.(js|css|png|jpg|jpeg|gif|json)(\\?.*)?$": {
           "proxy": "fastly.jsdelivr.net",
-          "backup": [
-            "gcore.jsdelivr.net"
-          ]
+          "backup": ["gcore.jsdelivr.net"]
         }
       },
       // 油猴脚本站
@@ -843,10 +855,7 @@
           "steamcommunity.com",
           "api.steampowered.com"
         ],
-        "dnsProviders": [
-          "cf-DoT",
-          "safe360"
-        ]
+        "dnsProviders": ["cf-DoT", "safe360"]
       }
     },
     "whiteList": {
@@ -1018,45 +1027,22 @@
       },
       "DNS": {
         "timeout": 3,
-        "allow": [
-          "baidu.cn",
-          "taobao.com",
-          "www.gov.cn"
-        ],
-        "block": [
-          "wikipedia.org",
-          "youtube.com",
-          "facebook.com"
-        ]
+        "allow": ["baidu.cn", "taobao.com", "www.gov.cn"],
+        "block": ["wikipedia.org", "youtube.com", "facebook.com"]
       },
       "TCP": {
         "timeout": 3,
         "addrs": {
           "IPv4": {
-            "allow": [
-              "114.114.114.114",
-              "223.6.6.6"
-            ],
-            "block": [
-              "8.8.8.8",
-              "1.1.1.1"
-            ]
+            "allow": ["114.114.114.114", "223.6.6.6"],
+            "block": ["8.8.8.8", "1.1.1.1"]
           },
           "IPv6": {
-            "allow": [
-              "2402:4e00::",
-              "2400:3200:baba::1"
-            ],
-            "block": [
-              "2001:4860:4860::8888",
-              "2606:4700:4700::1111"
-            ]
+            "allow": ["2402:4e00::", "2400:3200:baba::1"],
+            "block": ["2001:4860:4860::8888", "2606:4700:4700::1111"]
           }
         },
-        "ports": [
-          80,
-          443
-        ]
+        "ports": [80, 443]
       },
       "TLS": {
         "timeout": 3,
@@ -1078,17 +1064,8 @@
         "rowClass": "title1",
         "children": [
           {
-            "title": "1、官方远程配置版本:202604241421",
+            "title": "从2.0.2起，dev-sidecar原生支持显示配置元数据，不再额外手动标注。",
             "rowClass": "title2"
-          },
-          {
-            "title": "2、官方远程配置更新日志",
-            "rowClass": "title2",
-            "children": [
-              {
-                "title": "狠狠薅了一波mirrors.ustc.edu.cn的反代羊毛"
-              }
-            ]
           }
         ]
       },
