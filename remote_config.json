@@ -140,14 +140,20 @@
       "fonts.googleapis.com": {
         ".*": {
           "proxy": "fonts.googleapis.cn",
-          "backup": ["fonts.loli.net"],
+          "backup": [
+            "gstatic.loli.net",
+            "fonts-gstatic.proxy.ustclug.org"
+          ],
           "test": "https://fonts.googleapis.com/css?family=Oswald"
         }
       },
       "fonts.gstatic.com": {
         ".*": {
-          "proxy": "fonts-gstatic.proxy.ustclug.org",
-          "backup": ["gstatic.loli.net"],
+          "proxy": "fonts.googleapis.cn",
+          "backup": [
+            "gstatic.loli.net",
+            "fonts-gstatic.proxy.ustclug.org"
+          ],
           "test": "https://fonts.googleapis.com/css?family=Oswald"
         }
       },
@@ -297,7 +303,9 @@
       "cdn.jsdelivr.net": {
         "^/.*\\.(js|css|png|jpg|jpeg|gif|json)(\\?.*)?$": {
           "proxy": "fastly.jsdelivr.net",
-          "backup": ["gcore.jsdelivr.net"]
+          "backup": [
+            "gcore.jsdelivr.net"
+          ]
         }
       },
       // 油猴脚本站
@@ -859,7 +867,10 @@
           "steamcommunity.com",
           "api.steampowered.com"
         ],
-        "dnsProviders": ["cf-DoT", "safe360"]
+        "dnsProviders": [
+          "cf-DoT",
+          "safe360"
+        ]
       }
     },
     "whiteList": {
@@ -1031,22 +1042,45 @@
       },
       "DNS": {
         "timeout": 3,
-        "allow": ["baidu.cn", "taobao.com", "www.gov.cn"],
-        "block": ["wikipedia.org", "youtube.com", "facebook.com"]
+        "allow": [
+          "baidu.cn",
+          "taobao.com",
+          "www.gov.cn"
+        ],
+        "block": [
+          "wikipedia.org",
+          "youtube.com",
+          "facebook.com"
+        ]
       },
       "TCP": {
         "timeout": 3,
         "addrs": {
           "IPv4": {
-            "allow": ["114.114.114.114", "223.6.6.6"],
-            "block": ["8.8.8.8", "1.1.1.1"]
+            "allow": [
+              "114.114.114.114",
+              "223.6.6.6"
+            ],
+            "block": [
+              "8.8.8.8",
+              "1.1.1.1"
+            ]
           },
           "IPv6": {
-            "allow": ["2402:4e00::", "2400:3200:baba::1"],
-            "block": ["2001:4860:4860::8888", "2606:4700:4700::1111"]
+            "allow": [
+              "2402:4e00::",
+              "2400:3200:baba::1"
+            ],
+            "block": [
+              "2001:4860:4860::8888",
+              "2606:4700:4700::1111"
+            ]
           }
         },
-        "ports": [80, 443]
+        "ports": [
+          80,
+          443
+        ]
       },
       "TLS": {
         "timeout": 3,
