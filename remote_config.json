@@ -149,12 +149,12 @@
       },
       "fonts.gstatic.com": {
         ".*": {
-          "proxy": "fonts.googleapis.cn",
+          "proxy": "fonts.gstatic.cn",
           "backup": [
             "gstatic.loli.net",
             "fonts-gstatic.proxy.ustclug.org"
           ],
-          "test": "https://fonts.googleapis.com/css?family=Oswald"
+          "test": "https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2"
         }
       },
       "*.googleapis.com": {
