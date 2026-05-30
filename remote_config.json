@@ -7,8 +7,8 @@
     "metaInfo": {
       // 元数据就放在这里了
       "id": "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      "version": 202605070336, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      "updateLog": "修复了谷歌相关样式和图标无法正常加载的问题" // 我真的不觉得这个字段有多大必要
+      "version": 202605301646, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      "updateLog": "为brave全站提供支持以满足openclaw的brave搜索功能" // 我真的不觉得这个字段有多大必要
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -503,6 +503,11 @@
         ".*": {
           "sni": "www.baidu.com"
         }
+      },
+      "*.brave.com": {
+        ".*": {
+          "sni": "www.baidu.com"
+        }
       }
     },
     "preSetIpList": {
@@ -823,7 +828,8 @@
         "*.pixiv.org": "cf-DoT",
         "*.pximg.net": "cf-DoT",
         "*.onesignal.com": "cf-DoT",
-        "*.iubenda.com": "cf-DoT"
+        "*.iubenda.com": "cf-DoT",
+        "*.brave.com": "cf-DoT"
       },
       // @since v2.0.2
       "familyMapping": {
@@ -850,7 +856,8 @@
         "*.pixiv.org": "4",
         "*.pximg.net": "4",
         "*.onesignal.com": "4",
-        "*.iubenda.com": "4"
+        "*.iubenda.com": "4",
+        "*.brave.com": "4"
       },
       "speedTest": {
         "interval": 60000,
