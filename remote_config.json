@@ -503,6 +503,11 @@
         ".*": {
           "sni": "www.baidu.com"
         }
+      },
+      "*.brave.com": {
+        ".*": {
+          "sni": "www.baidu.com"
+        }
       }
     },
     "preSetIpList": {
@@ -833,7 +838,9 @@
         "*.pixiv.org": "cf-DoT",
         "*.pximg.net": "cf-DoT",
         "*.onesignal.com": "cf-DoT",
-        "*.iubenda.com": "cf-DoT"
+        "*.iubenda.com": "cf-DoT",
+        "*.brave.com": "cf-DoT",
+        "*duckduckgo.com": "cf-DoT"
       },
       // @since v2.0.2
       "familyMapping": {
@@ -860,7 +867,9 @@
         "*.pixiv.org": "4",
         "*.pximg.net": "4",
         "*.onesignal.com": "4",
-        "*.iubenda.com": "4"
+        "*.iubenda.com": "4",
+        "*.brave.com": "4",
+        "*duckduckgo.com": "4"
       },
       "speedTest": {
         "interval": 60000,
