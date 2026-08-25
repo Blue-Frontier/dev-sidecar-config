@@ -554,6 +554,8 @@
 		},
 		"pip": {
 			"setting": {
+				"trustedHost": "mirrors.aliyun.com",
+				"registry": "https://mirrors.aliyun.com/pypi/simple/",
 				"registryList": {
 				}
 			}
