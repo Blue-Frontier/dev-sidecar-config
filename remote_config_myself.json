@@ -311,8 +311,8 @@
 				],
 				"dnsProviders": [
 					"aliyun",
-					"bebasid",
-					"cf-DoT"
+					"cf-DoT",
+					"bebasid"
 				]
 			}
 		},
