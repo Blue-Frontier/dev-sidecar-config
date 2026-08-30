@@ -830,6 +830,7 @@
         }*/
       },
       "mapping": {
+        "*.xn--ngstr-lra8j.com": "bebasid",
         "*.googlevideo.com": "bebasid",
         "*.gvt1.com": "bebasid",
         "*.jetbrains.com": "cf-DoT",
@@ -859,6 +860,7 @@
       },
       // @since v2.0.2
       "familyMapping": {
+        "*.xn--ngstr-lra8j.com": "6",
         "*.googlevideo.com": "6",
         "*.gvt1.com": "6",
         "*.jetbrains.com": "4",
