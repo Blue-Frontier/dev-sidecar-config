@@ -137,26 +137,26 @@
         }
       },
       // google相关
-      "fonts.googleapis.com": {
-        ".*": {
-          "proxy": "fonts.googleapis.cn",
-          "backup": [
-            "gstatic.loli.net",
-            "fonts-gstatic.proxy.ustclug.org"
-          ],
-          "test": "https://fonts.googleapis.com/css?family=Oswald"
-        }
-      },
-      "fonts.gstatic.com": {
-        ".*": {
-          "proxy": "fonts.gstatic.cn",
-          "backup": [
-            "gstatic.loli.net",
-            "fonts-gstatic.proxy.ustclug.org"
-          ],
-          "test": "https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2"
-        }
-      },
+      // "fonts.googleapis.com": {
+      //   ".*": {
+      //     "proxy": "fonts.googleapis.cn",
+      //     "backup": [
+      //       "gstatic.loli.net",
+      //       "fonts-gstatic.proxy.ustclug.org"
+      //     ],
+      //     "test": "https://fonts.googleapis.com/css?family=Oswald"
+      //   }
+      // },
+      // "fonts.gstatic.com": {
+      //   ".*": {
+      //     "proxy": "fonts.gstatic.cn",
+      //     "backup": [
+      //       "gstatic.loli.net",
+      //       "fonts-gstatic.proxy.ustclug.org"
+      //     ],
+      //     "test": "https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2"
+      //   }
+      // },
       "*.googleapis.com": {
         ".*": {
           "sni": "www.google.cn"
@@ -191,7 +191,7 @@
       },
       "^(?<pre>.*).googlevideo.com$": {
         "*": {
-          "proxy_backup": "${pre}.gvt1.com",
+          "proxy_backup": "${pre}.xn--ngstr-lra8j.com",
           "sni": "g.cn",
           "options": true
         },
@@ -343,12 +343,6 @@
         }
       },
       //Steam相关
-      "*.steamserver.net": {
-        ".*": {
-          "sni": "www.baidu.com",
-          "desc": "steam登录不稳定？无法复现先这么写"
-        }
-      },
       "images.steamusercontent.com": {
         ".*": {
           "sni": "baidu.com"
@@ -409,6 +403,12 @@
       "*apkmirror.com": {
         ".*": {
           "sni": "none"
+        }
+      },
+      //claude.ai相关
+      "*.claude.ai": {
+        ".*": {
+          "sni": "claude.ai"
         }
       },
       // DS_DOWNLOAD配置
@@ -551,6 +551,12 @@
         "185.199.110.154": true,
         "185.199.111.154": true
       },
+      "*.githubusercontent.com": {
+        "185.199.111.133": true,
+        "185.199.108.133": true,
+        "185.199.109.133": true,
+        "185.199.110.133": true
+      },
         // Docker Hub
       "hub.docker.com": {
         "144.34.172.106": true,
@@ -597,13 +603,13 @@
         "210.140.139.155": true
       },
       // Google
-      "fonts.googleapis.cn": {
-        "120.253.255.34": true,
-        "220.181.174.98": true,
-        "114.250.67.34": true,
-        "203.208.41.98": true,
-        "220.181.174.162": true
-      },
+      // "fonts.googleapis.cn": {
+      //   "120.253.255.34": true,
+      //   "220.181.174.98": true,
+      //   "114.250.67.34": true,
+      //   "203.208.41.98": true,
+      //   "220.181.174.162": true
+      // },
       "^(aistudio|.*pa.clients6|apis|gemini|console.cloud|notebooklm|mail).google.com$": {
         "8.137.102.117": {
           "desc": "AI Studio相关,阿里云,解锁地区限制,新加坡,仅大陆访问"
@@ -626,7 +632,7 @@
       "(*account*|scholar).google.com": {
         "172.217.204.206": true
       },
-      "^.*(with)?google(apis|usercontent)?.com.*$": {
+      "^(?!fonts).*(with)?google(apis|usercontent)?.com.*$": {
         "8.137.102.117": false, // 阿里云中转
         "142.251.189.206": {
           "desc": "自动地区官方"
@@ -732,16 +738,22 @@
         "104.18.42.105": true,
         "172.64.145.151": true
       },
-      "*.steamstatic.com": {
-        "151.101.91.52": true,
+      "clientconfig.akamai.steamstatic.com": {
+       " 23.208.12.191": true,
+        "23.32.91.19": true,
+        "2.16.168.104": true,
+        "2.16.168.109": true,
+        "23.32.91.17": true,
+        "23.208.12.174": true
+      },
+      "community.steamstatic.com":{
         "146.75.47.52": true,
+        "151.101.91.52": true,
+        "199.232.163.52": true,
         "146.75.115.52": true,
-        "151.101.111.52": true,
-        "151.101.3.52": true,
-        "151.101.195.52": true,
-        "151.101.79.52": true,
-        "151.101.67.52": true,
-        "146.75.51.52": true
+        "199.232.215.52": true,
+        "199.232.211.52": true,
+        "151.101.79.52": true
       },
       "cdn.steamcommunity.com": {
         "23.221.227.5": true
@@ -750,11 +762,13 @@
         "184.50.187.66": true
       },
       "^(store|checkout).steampowered.com$": {
-        "72.246.28.155": true,
-        "2.19.100.78": true,
-        "23.15.141.198": true,
-        "23.206.181.48": true,
-        "23.35.101.126": true
+        "23.209.218.108": true,
+        "184.31.230.122": true,
+        "23.35.102.114": true,
+        "104.83.198.104": true,
+        "23.51.62.114": true,
+        "23.55.98.103": true
+
       },
       //DuckDuckGo
       "external-content.duckduckgo.com": {
@@ -788,6 +802,10 @@
       //startpage
       "*startpage.com": {
         "67.63.58.139": true
+      },
+      //claude.ai
+      "*.claude.ai": {
+        "2a01:4f8:c2c:123f:64:5:a04f:680a": true
       },
       //其它
       "cdn.jsdelivr.net": {
