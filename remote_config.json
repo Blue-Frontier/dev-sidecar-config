@@ -7,7 +7,7 @@
     "metaInfo": {
       // 元数据就放在这里了
       "id": "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      "version": 202608302020, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      "version": 202610023500, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
       "updateLog": "为github.githubassets.com预设IP" // 我真的不觉得这个字段有多大必要
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
@@ -22,7 +22,7 @@
   },
   "server": {
     "intercepts": {
-      // github相关
+      // Github
       "github.com": {
         "^(/[^/]+){2,}/?(\\?.*)?$": {
           "tampermonkeyScript": "https://raw.giteeusercontent.com/wangliang181230/dev-sidecar-config/raw/main/tampermonkey.js",
@@ -136,27 +136,7 @@
           "sni": "baidu.com"
         }
       },
-      // google相关
-      // "fonts.googleapis.com": {
-      //   ".*": {
-      //     "proxy": "fonts.googleapis.cn",
-      //     "backup": [
-      //       "gstatic.loli.net",
-      //       "fonts-gstatic.proxy.ustclug.org"
-      //     ],
-      //     "test": "https://fonts.googleapis.com/css?family=Oswald"
-      //   }
-      // },
-      // "fonts.gstatic.com": {
-      //   ".*": {
-      //     "proxy": "fonts.gstatic.cn",
-      //     "backup": [
-      //       "gstatic.loli.net",
-      //       "fonts-gstatic.proxy.ustclug.org"
-      //     ],
-      //     "test": "https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2"
-      //   }
-      // },
+      // Google
       "*.googleapis.com": {
         ".*": {
           "sni": "www.google.cn"
@@ -201,13 +181,13 @@
           "proxy": "www.recaptcha.net"
         }
       },
-      // 微软相关配置
+      // Microsoft
       "ms-sso.copilot.microsoft.com": {
         ".*": {
           "sni": "microsoft.com" // 微软登录会奇怪跳转至此站点中转，防止卡登录
         }
       },
-      // Docker Hub站点所需配置
+      // Docker Hub
       "www.docker.com": {
         ".*": {
           "sni": "www.docker.com" // 配置它自己是为了覆盖 *.docker.com 中的SNI配置，此配置优先级更高
@@ -233,7 +213,7 @@
           "sni": "www.docker.com"
         }
       },
-      // Pixiv站点所需SNI配置（结合预设IP中的配置，可直连访问Pixiv站点）
+      // Pixiv
       "*.pixiv.net": {
         ".*": {
           "sni": "baidu.com"
@@ -296,7 +276,7 @@
           "sni": "baidu.com"
         }
       },
-      // jsdelivr静态资源的拦截配置
+      // jsdelivr
       "cdn.jsdelivr.net": {
         "^/.*\\.(js|css|png|jpg|jpeg|gif|json)(\\?.*)?$": {
           "proxy": "fastly.jsdelivr.net",
@@ -305,7 +285,7 @@
           ]
         }
       },
-      // 油猴脚本站
+      // Greasyfork
       "*.greasyfork.org": {
         ".*": {
           "sni": "baidu.com"
@@ -316,19 +296,19 @@
           "sni": "baidu.com"
         }
       },
-      // huggingface：AI集成平台
+      // Hugging Face
       "*.huggingface.co": {
         ".*": {
           "sni": "huggingface.cn"
         }
       },
-      // vueJS国内站点
+      // vueJS
       "cn.vuejs.org": {
         ".*": {
           "sni": "vuejs.org"
         }
       },
-      //Z-lib相关
+      //Z-lib
       "*z-library.sk": {
         ".*": {
           "sni": "www.baidu.com"
@@ -339,7 +319,7 @@
           "sni": "www.baidu.com"
         }
       },
-      //Steam相关
+      //Steam
       "images.steamusercontent.com": {
         ".*": {
           "sni": "baidu.com"
@@ -362,7 +342,7 @@
           "sni": "www.baidu.com"
         }
       },
-      //DuckDuckGo相关
+      //DuckDuckGo
       "external-content.duckduckgo.com": {
         ".*": {
           "sni": "www.baidu.com"
@@ -373,19 +353,19 @@
           "sni": "www.baidu.com"
         }
       },
-      //OneDrive相关
+      //OneDrive
       "*onedrive.live.com": {
         ".*": {
           "sni": "www.baidu.com"
         }
       },
-      //Dropbox相关
+      //Dropbox
       "*dropbox.com": {
         ".*": {
           "sni": "www.baidu.com"
         }
       },
-      //f-droid相关
+      //f-droid
       "*f-droid.org": {
         ".*": {
           "sni": "www.baidu.com"
@@ -396,13 +376,13 @@
           "sni": "www.baidu.com"
         }
       },
-      //apkmirrors相关
+      //apkmirrors
       "*apkmirror.com": {
         ".*": {
           "sni": "none"
         }
       },
-      //claude.ai相关
+      //Claude.ai
       "*.claude.ai": {
         ".*": {
           "sni": "claude.ai"
@@ -600,13 +580,7 @@
         "210.140.139.155": true
       },
       // Google
-      // "fonts.googleapis.cn": {
-      //   "120.253.255.34": true,
-      //   "220.181.174.98": true,
-      //   "114.250.67.34": true,
-      //   "203.208.41.98": true,
-      //   "220.181.174.162": true
-      // },
+
       "^(aistudio|.*pa.clients6|apis|gemini|console.cloud|notebooklm|mail).google.com$": {
         "8.137.102.117": {
           "desc": "AI Studio相关,阿里云,解锁地区限制,新加坡,仅大陆访问"
@@ -654,6 +628,7 @@
       //   "172.253.122.206":"true",
       //   "38.180.33.93":"true"
       // },
+
       // YouTube
       "*.youtube.com": {
         "8.137.102.117": false, // 阿里云中转
@@ -695,7 +670,7 @@
       "*.huggingface.co": {
         "3.167.200.113": true
       },
-      // Greasy Fork
+      // Greasyfork
       "*.greasyfork.org": {
         "96.126.98.220": true,
         "50.116.4.196": true
@@ -722,14 +697,14 @@
         "57.144.220.192": true,
         "57.144.216.192": true
       },
-      //z-lib
+      //Z-lib
       "*z-library.sk": {
         "176.123.7.105": true
       },
       "*z-lib.help": {
         "176.123.7.105": true
       },
-      //steam
+      //Steam
       "community.cloudflare.steamstatic.com": {
         "23.209.46.70": true,
         "104.18.42.105": true,
@@ -756,7 +731,9 @@
         "23.221.227.5": true
       },
       "*.steamcommunity.com": {
-        "184.50.187.66": true
+        "23.209.217.19": true,
+        "23.15.140.216": true,
+        "104.79.200.218": true
       },
       "^(store|checkout).steampowered.com$": {
         "23.209.218.108": true,
@@ -800,11 +777,11 @@
       "*startpage.com": {
         "67.63.58.139": true
       },
-      //claude.ai
+      //Claude.ai
       "*.claude.ai": {
         "2a01:4f8:c2c:123f:64:5:a04f:680a": true
       },
-      //其它
+      //其它站点
       "cdn.jsdelivr.net": {
         "104.16.89.20": true
       }
@@ -888,6 +865,62 @@
         "*.brave.com": "4",
         "*duckduckgo.com": "4"
       },
+      "ech": {
+        "domains": [
+          "*.ldstatic.com",
+          "civitai.com",
+          "*.linux.do",
+          "*.greasyfork.org"
+        ],
+        "dns": "cf-DoH",
+        "preSetIpDomains": [
+          "*.ldstatic.com"
+        ],
+        "enabled": true,
+        "use": true,
+        "publicName": "cloudflare-ech.com",
+        "cacheSize": 512,
+        "emptyTtl": 600000,
+        "minTtl": 60000,
+        "maxTtl": 3600000,
+        "tryAllProviders": true,
+        "parallelDelay": 200
+      },
+      "nat64": {
+        "enabled": true,
+        "domains": [
+          "chatgpt.com",
+          "*.chatgpt.com",
+          "auth.openai.com",
+          "auth0.openai.com",
+          "files.oaiusercontent.com",
+          "cdn.oaistatic.com"
+        ],
+        "dns": "aliyun",
+        "prefix": "2a01:4f8:c2c:123f:64:5::",
+        "doh": [
+          "https://dns.alidns.com/resolve",
+          "https://cloudflare-dns.com/dns-query",
+          "https://dns.google/resolve"
+        ],
+        "bootstrap": {
+          "dns.alidns.com": [
+            "223.5.5.5",
+            "223.6.6.6"
+          ],
+          "doh.pub": [
+            "1.12.12.12",
+            "120.53.53.53"
+          ],
+          "cloudflare-dns.com": [
+            "1.1.1.1",
+            "1.0.0.1"
+          ],
+          "dns.google": [
+            "8.8.8.8",
+            "8.8.4.4"
+          ]
+        },
       "speedTest": {
         "interval": 60000,
         "hostnameList": [
