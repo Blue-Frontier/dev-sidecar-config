@@ -7,8 +7,8 @@
     "metaInfo": {
       // 元数据就放在这里了
       "id": "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      "version": 202610023500, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      "updateLog": "为github.githubassets.com预设IP" // 我真的不觉得这个字段有多大必要
+      "version": 202610030000, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      "updateLog": "修复末尾缺少闭合右花括号的问题；修复version字段的值超出范围的问题" // 我真的不觉得这个字段有多大必要
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -534,7 +534,7 @@
         "185.199.109.133": true,
         "185.199.110.133": true
       },
-        // Docker Hub
+      // Docker Hub
       "hub.docker.com": {
         "144.34.172.106": true,
         "69.63.207.139": false,
@@ -580,7 +580,6 @@
         "210.140.139.155": true
       },
       // Google
-
       "^(aistudio|.*pa.clients6|apis|gemini|console.cloud|notebooklm|mail).google.com$": {
         "8.137.102.117": {
           "desc": "AI Studio相关,阿里云,解锁地区限制,新加坡,仅大陆访问"
@@ -628,7 +627,6 @@
       //   "172.253.122.206":"true",
       //   "38.180.33.93":"true"
       // },
-
       // YouTube
       "*.youtube.com": {
         "8.137.102.117": false, // 阿里云中转
@@ -711,14 +709,14 @@
         "172.64.145.151": true
       },
       "clientconfig.akamai.steamstatic.com": {
-       " 23.208.12.191": true,
+        " 23.208.12.191": true,
         "23.32.91.19": true,
         "2.16.168.104": true,
         "2.16.168.109": true,
         "23.32.91.17": true,
         "23.208.12.174": true
       },
-      "community.steamstatic.com":{
+      "community.steamstatic.com": {
         "146.75.47.52": true,
         "151.101.91.52": true,
         "199.232.163.52": true,
@@ -742,7 +740,6 @@
         "104.83.198.104": true,
         "23.51.62.114": true,
         "23.55.98.103": true
-
       },
       //DuckDuckGo
       "external-content.duckduckgo.com": {
