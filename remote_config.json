@@ -921,6 +921,9 @@
             "8.8.4.4"
           ]
         },
+        "cacheTtl": 300000,
+        "verifySsl": false
+      },
       "speedTest": {
         "interval": 60000,
         "hostnameList": [
