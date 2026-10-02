@@ -1,14 +1,14 @@
 {
   "app": {
     "remoteConfig": {
-      "url": "https://github.com/Blue-Frontier/dev-sidecar-config/raw/main/remote_config.json5"
+      "url": "https://ds-official-config.bestar.de5.net/remote_config.json5"
     },
     //配置编辑时间、版本信息
     "metaInfo": {
       // 元数据就放在这里了
       "id": "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      "version": 202610031400, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      "updateLog": "删除测试条目" // 我真的不觉得这个字段有多大必要
+      "version": 202610030141, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      "updateLog": "新增*.usercontent.goog规则（preSetIpList钉阿里云中转IP）；配置地址改为ds-official-config.bestar.de5.net" // 我真的不觉得这个字段有多大必要
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -606,6 +606,17 @@
         "8.137.102.117": false, // 阿里云中转
         "142.251.189.206": {
           "desc": "自动地区官方"
+        }
+      },
+      // usercontent.goog 是 googleusercontent.com 的 .goog 版，上面的规则匹配不到 .goog
+      // 2026-10-03实测：该域名的Google官方IP全部不可达（超时，或返回CN=invalid.invalid兜底证书），
+      // 只有这两个阿里云中转IP可用，返回真实Google证书链（CN=*.googleusercontent.com）
+      "^(.*\\.)?usercontent\\.goog$": {
+        "47.102.115.14": {
+          "desc": "阿里云中转,日本,实测0.45s,首选"
+        },
+        "8.137.102.117": {
+          "desc": "阿里云中转,新加坡,实测0.50s,备用"
         }
       },
       "^.*(youtube.com|gstatic.com|youtube.nocookie.com|youtu.be|ggpht.com|i.ytimg.com|blogger.com|doodles.google|about.google|android.com|antigravity.google)$": {

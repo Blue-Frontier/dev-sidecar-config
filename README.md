@@ -1,1 +1,1 @@
-https://github.com/Blue-Frontier/dev-sidecar-config/raw/main/remote_config.json5
+https://ds-official-config.bestar.de5.net/remote_config.json5
