@@ -7,8 +7,8 @@
     "metaInfo": {
       // 元数据就放在这里了
       "id": "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      "version": 202610031340, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      "updateLog": "测试恢复访问" // 我真的不觉得这个字段有多大必要
+      "version": 202610031400, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      "updateLog": "删除测试条目" // 我真的不觉得这个字段有多大必要
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -861,65 +861,6 @@
         "*.iubenda.com": "4",
         "*.brave.com": "4",
         "*duckduckgo.com": "4"
-      },
-      "ech": {
-        "domains": [
-          "*.ldstatic.com",
-          "civitai.com",
-          "*.linux.do",
-          "*.greasyfork.org"
-        ],
-        "dns": "cf-DoH",
-        "preSetIpDomains": [
-          "*.ldstatic.com"
-        ],
-        "enabled": true,
-        "use": true,
-        "publicName": "cloudflare-ech.com",
-        "cacheSize": 512,
-        "emptyTtl": 600000,
-        "minTtl": 60000,
-        "maxTtl": 3600000,
-        "tryAllProviders": true,
-        "parallelDelay": 200
-      },
-      "nat": {
-        "enabled": true,
-        "domains": [
-          "chatgpt.com",
-          "*.chatgpt.com",
-          "auth.openai.com",
-          "auth0.openai.com",
-          "files.oaiusercontent.com",
-          "cdn.oaistatic.com"
-        ],
-        "dns": "aliyun",
-        "prefix": "2a01:4f8:c2c:123f:64:5::",
-        "doh": [
-          "https://dns.alidns.com/resolve",
-          "https://cloudflare-dns.com/dns-query",
-          "https://dns.google/resolve"
-        ],
-        "bootstrap": {
-          "dns.alidns.com": [
-            "223.5.5.5",
-            "223.6.6.6"
-          ],
-          "doh.pub": [
-            "1.12.12.12",
-            "120.53.53.53"
-          ],
-          "cloudflare-dns.com": [
-            "1.1.1.1",
-            "1.0.0.1"
-          ],
-          "dns.google": [
-            "8.8.8.8",
-            "8.8.4.4"
-          ]
-        },
-        "cacheTtl": 300000,
-        "verifySsl": false
       },
       "speedTest": {
         "interval": 60000,
