@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610031600, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "补充 dns.ech / safe360 / speedTest.enabled；移除已下线的 kubernetes-charts 镜像规则，以及一批已失效的 sni 规则（pixiv/greasyfork/z-lib/brave/gist/steamusercontent/onedrive/msecnd）", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202610031700, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "补回 quad9 DNS：provider + *.gstatic.com / *.googleapis.com 的 mapping 与 familyMapping（修复 Gemini 的 gstatic 图标加载不出）", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -762,6 +762,10 @@
           "sni": "www.google.cn",
           "desc": "不可用"
         }*/,
+        // 补：Gemini 的 gstatic 图标需要它（bug #9 的 DNS 部分修复）
+        quad9: {
+          server: "https://9.9.9.9/dns-query",
+        },
       },
       mapping: {
         "*.xn--ngstr-lra8j.com": "bebasid",
@@ -791,6 +795,9 @@
         "*.iubenda.com": "cf-DoT",
         "*.brave.com": "cf-DoT",
         "*duckduckgo.com": "cf-DoT",
+        // Gemini 图标 / Google API（bug #9）：用 quad9 避开 DNS 污染
+        "*.gstatic.com": "quad9",
+        "*.googleapis.com": "quad9",
       },
       // @since v2.0.2
       familyMapping: {
@@ -821,6 +828,9 @@
         "*.iubenda.com": "4",
         "*.brave.com": "4",
         "*duckduckgo.com": "4",
+        // 对应上面 mapping 里新增的两条（值与既有条目一致，用字符串）
+        "*.gstatic.com": "4",
+        "*.googleapis.com": "4",
       },
       speedTest: {
         enabled: true, // GUI「IP测速」开关的初始值；缺省时开关显示为未勾选，但内核实际仍在测速
