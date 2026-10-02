@@ -7,8 +7,8 @@
     "metaInfo": {
       // 元数据就放在这里了
       "id": "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      "version": 202610030141, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      "updateLog": "新增*.usercontent.goog规则（preSetIpList钉阿里云中转IP）；配置地址改为ds-official-config.bestar.de5.net" // 我真的不觉得这个字段有多大必要
+      "version": 202610031401, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      "updateLog": "新增*.usercontent.goog规则；配置地址改为ds-official-config.bestar.de5.net；油猴脚本与wiki链接改到GitHub" // 我真的不觉得这个字段有多大必要
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -25,8 +25,8 @@
       // Github
       "github.com": {
         "^(/[^/]+){2,}/?(\\?.*)?$": {
-          "tampermonkeyScript": "https://raw.giteeusercontent.com/wangliang181230/dev-sidecar-config/raw/main/tampermonkey.js",
-          "script": "https://raw.giteeusercontent.com/wangliang181230/dev-sidecar-config/raw/main/GithubEnhanced-High-Speed-Download.user.js",
+          "tampermonkeyScript": "https://ds-official-config.bestar.de5.net/tampermonkey.js",
+          "script": "https://ds-official-config.bestar.de5.net/GithubEnhanced-High-Speed-Download.user.js",
           "remark": "注：上面所使用的脚本地址，为高速镜像地址。",
           "desc": "油猴脚本：高速下载 Git Clone/SSH、Release、Raw、Code(ZIP) 等文件 (公益加速)、项目列表单文件快捷下载、添加 git clone 命令"
         },
@@ -1134,7 +1134,7 @@
         "children": [
           {
             "title": "1、解决Github访问不了或速度很慢的问题（切换高速IP）",
-            "url": "https://gitee.com/wangliang181230/dev-sidecar/wikis/%E8%A7%A3%E5%86%B3Github%E8%AE%BF%E9%97%AE%E4%B8%8D%E4%BA%86%E6%88%96%E9%80%9F%E5%BA%A6%E5%BE%88%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98"
+            "url": "https://github.com/docmirror/dev-sidecar/wiki/%E8%A7%A3%E5%86%B3Github%E8%AE%BF%E9%97%AE%E4%B8%8D%E4%BA%86%E6%88%96%E9%80%9F%E5%BA%A6%E5%BE%88%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98"
           },
           {
             "title": "2、Linux安装证书失败的避坑（Linux手动安装证书详细教程）",
