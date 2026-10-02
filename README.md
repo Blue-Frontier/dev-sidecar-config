@@ -1,1 +1,1 @@
-https://gitee.com/wangliang181230/dev-sidecar-config/raw/main/remote_config.json
+https://github.com/Blue-Frontier/dev-sidecar-config/raw/main/remote_config.json
