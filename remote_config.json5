@@ -1,7 +1,7 @@
 {
   "app": {
     "remoteConfig": {
-      "url": "https://raw.giteeusercontent.com/wangliang181230/dev-sidecar-config/raw/main/remote_config.json"
+      "url": "https://github.com/Blue-Frontier/dev-sidecar-config/raw/main/remote_config.json5"
     },
     //配置编辑时间、版本信息
     "metaInfo": {
