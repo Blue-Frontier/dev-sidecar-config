@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610031700, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "补回 quad9 DNS：provider + *.gstatic.com / *.googleapis.com 的 mapping 与 familyMapping（修复 Gemini 的 gstatic 图标加载不出）", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202610031740, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "新增 ech 配置", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -869,12 +869,23 @@
        * 注：domains 名单中的域名会强制忽略常规的 SNI 改写与预设IP等配置，并被自动拦截（无需再配置拦截器）。
        */
       ech: {
+        domains: [
+					"*.pixiv.net",
+					"pixiv.net",
+					"chatgpt.com",
+					"*civitai.com",
+					"*.ldstatic.com",
+					"civitai.com",
+					"*.linux.do",
+					"*.greasyfork.org"
+				],
+				preSetIpDomains: [
+					"*.ldstatic.com"
+				],
+			  dns: "cf-DoH"
         enabled: true,
         use: true,
-        domains: [],
-        dns: "",
         publicName: "cloudflare-ech.com",
-        preSetIpDomains: [],
         cacheSize: 512,
         emptyTtl: 600000,
         minTtl: 60000,
