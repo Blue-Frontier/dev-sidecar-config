@@ -882,7 +882,7 @@
 				preSetIpDomains: [
 					"*.ldstatic.com"
 				],
-			  dns: "cf-DoH"
+			  dns: "cf-DoH",
         enabled: true,
         use: true,
         publicName: "cloudflare-ech.com",
