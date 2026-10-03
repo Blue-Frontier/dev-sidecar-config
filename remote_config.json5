@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610040020, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "恢复DNS配置", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202610040215, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "版本更新日志补全至 v1.0.2：补齐 v2.0.0.3/v2.0.1-test/v2.1.0/v2.1.1/v2.2.0/v2.3.0 及 v1.0~v1.7 各版本发布地址", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -1186,6 +1186,40 @@
         url: "https://github.com/docmirror/dev-sidecar/releases",
         children: [
           {
+            title: "v2.3.x",
+            rowClass: "title2",
+            children: [
+              {
+                title: "[ 2026-10-03 ] v2.3.0（支持 ECH 加密 SNI、请求自动重试，新增「日志与流量」「GitHub 状态监控」页）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v2.3.0",
+              },
+            ],
+          },
+          {
+            title: "v2.2.x",
+            rowClass: "title2",
+            children: [
+              {
+                title: "[ 2026-07-02 ] v2.2.0（实验性自动更新、HTTP/2 代理、按需 IP 探测，修复诸多安全漏洞）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v2.2.0",
+              },
+            ],
+          },
+          {
+            title: "v2.1.x",
+            rowClass: "title2",
+            children: [
+              {
+                title: "[ 2026-06-29 ] v2.1.1（修复 v2.1.0 中的问题及诸多安全漏洞）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v2.1.1",
+              },
+              {
+                title: "[ 2026-06-28 ] v2.1.0（稳定性提升，free eye 插件回归）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v2.1.0",
+              },
+            ],
+          },
+          {
             title: "v2.0.x",
             rowClass: "title2",
             children: [
@@ -1200,6 +1234,14 @@
               {
                 title: "[ 2026-04-12 ] v2.0.1（可在支持IPv6网络直连看YouTube视频了）",
                 url: "https://github.com/docmirror/dev-sidecar/releases/tag/v2.0.1",
+              },
+              {
+                title: "[ 2026-02-02 ] v2.0.0.3（修复脚本插入的 BUG）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v2.0.0.3",
+              },
+              {
+                title: "[ 2025-12-31 ] v2.0.1-test（测试版：从 v2.0.0.2 继承，引入 free eye 插件、修复导入 BUG；版本号故意不合规以避免触发自动更新）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v2.0.1-test",
               },
               {
                 title: "[ 2025-05-15 ] v2.0.0.2",
@@ -1292,6 +1334,108 @@
               {
                 title: "[ 2022-03-14 ] v1.7.3",
                 url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.7.3",
+              },
+              {
+                title: "[ 2021-12-06 ] v1.7.2",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.7.2",
+              },
+              {
+                title: "[ 2021-11-23 ] v1.7.1（升级 electron 版本，修复证书过期与 GitHub 静态资源加载问题）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.7.1",
+              },
+              {
+                title: "[ 2021-11-21 ] v1.7.0",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.7.0",
+              },
+            ],
+          },
+          {
+            title: "v1.6.x",
+            rowClass: "title2",
+            children: [
+              {
+                title: "[ 2021-09-12 ] v1.6.2（默认配置支持远程更新，mac 顶栏图标跟随主题切换）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.6.2",
+              },
+              {
+                title: "[ 2021-08-21 ] v1.6.1（修复 Windows 下无法开机自启的问题）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.6.1",
+              },
+              {
+                title: "[ 2021-08-19 ] 1.6.0（支持 Ubuntu，Mac 应用名改为小写）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/1.6.0",
+              },
+            ],
+          },
+          {
+            title: "v1.5.x",
+            rowClass: "title2",
+            children: [
+              {
+                title: "[ 2021-04-05 ] v1.5.1（支持增量更新）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.5.1",
+              },
+              {
+                title: "[ 2021-03-27 ] v1.5.0（新增模式切换与 IP 测速功能）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.5.0",
+              },
+            ],
+          },
+          {
+            title: "v1.4.x",
+            rowClass: "title2",
+            children: [
+              {
+                title: "[ 2021-01-10 ] v1.4.0（支持 mac）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.4.0",
+              },
+            ],
+          },
+          {
+            title: "v1.3.x",
+            rowClass: "title2",
+            children: [
+              {
+                title: "[ 2020-12-04 ] v1.3.1（新增 git 代理开关与增强功能）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.3.1",
+              },
+              {
+                title: "[ 2020-12-04 ] v1.3.0（新增 git 代理开关与增强功能）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.3.0",
+              },
+            ],
+          },
+          {
+            title: "v1.2.x",
+            rowClass: "title2",
+            children: [
+              {
+                title: "[ 2020-11-29 ] v1.2.2（修复 win7 设置代理不生效、360 设置代理缓慢）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/v1.2.2",
+              },
+              {
+                title: "[ 2020-11-19 ] 1.2.0（修复 GitHub README 引用图片打不开，新增插入脚本功能）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/1.2.0",
+              },
+            ],
+          },
+          {
+            title: "v1.1.x",
+            rowClass: "title2",
+            children: [
+              {
+                title: "[ 2020-11-14 ] 1.1.0（新增日志，修复升级后未完全退出导致的升级失败）",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/1.1.0",
+              },
+            ],
+          },
+          {
+            title: "v1.0.x",
+            rowClass: "title2",
+            children: [
+              {
+                title: "[ 2020-11-11 ] 1.0.2",
+                url: "https://github.com/docmirror/dev-sidecar/releases/tag/1.0.2",
               },
             ],
           },
