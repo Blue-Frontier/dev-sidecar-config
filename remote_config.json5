@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610031740, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "新增 ech 配置", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202610040020, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "恢复DNS配置", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -740,31 +740,36 @@
     },
     dns: {
       providers: {
-        // 补：speedTest.dnsProviders 引用了它，但此前 providers 里缺失（悬空引用）
-        safe360: {
-          server: "tls://dot.360.cn",
-          forSNI: true,
+        "local": {
+          "server": "127.0.0.1",
+        },
+        "aliyun": {
+          "server": "223.5.5.5",
+        },
+        "safe360": {
+          "server": "tls://dot.360.cn",
+          "forSNI": true
         },
         "cf-DoT": {
-          server: "tls://1.1.1.1",
-          sni: "baidu.com",
+          "server": "tls://1.1.1.1",
+          "sni": "baidu.com",
         },
-        bebasid: {
-          server: "tls://dns.bebasid.com",
-          sni: "baidu.com",
+        "bebasid": {
+          "server": "tls://dns.bebasid.com",
+          "sni": "baidu.com",
         },
         "cf-DoH": {
-          server: "https://cloudflare-dns.com/dns-query",
-          sni: "baidu.com",
-        } /*,
-        "Google-DoH": {
-          "server": "https://dns.google/dns-query",
-          "sni": "www.google.cn",
-          "desc": "不可用"
-        }*/,
-        // 补：Gemini 的 gstatic 图标需要它（bug #9 的 DNS 部分修复）
-        quad9: {
-          server: "https://9.9.9.9/dns-query",
+          "server": "https://cloudflare-dns.com/dns-query",
+          "sni": "baidu.com",
+        },
+        "quad9-ip": {
+          "server": "https://9.9.9.9/dns-query",
+        },
+        "cf-ip": {
+          "server": "https://1.1.1.1/dns-query",
+        },
+        "rubyfish": {
+          "server": "https://rubyfish.cn/dns-query",
         },
       },
       mapping: {
