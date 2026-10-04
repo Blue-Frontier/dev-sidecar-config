@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610040215, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "版本更新日志补全至 v1.0.2：补齐 v2.0.0.3/v2.0.1-test/v2.1.0/v2.1.1/v2.2.0/v2.3.0 及 v1.0~v1.7 各版本发布地址", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202610050441, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "补回 GitHub 主站(github.com)与静态资源站(github.githubassets.com)的整站 SNI 伪装规则——v2.x 的 internal 内置配置里有、2.3.0 起内置配置改为官方配置镜像后丢失，导致 GitHub 无法访问；同时补回被同步冲掉的 Google Fonts/themes/reCAPTCHA 代理与 Docker 登录页图标规则", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -24,6 +24,13 @@
     intercepts: {
       // Github
       "github.com": {
+        // 整站 SNI 伪装：中间网络按 SNI 阻断 github.com，上游 TLS 握手必须伪装成国内域名，
+        // 否则 github.com 主站无法访问。（v2.x 的 internal 内置配置里有这条，2.3.0 起内置配置
+        // 改为官方配置的镜像后被删除；而官方配置里 api.github.com、*.githubusercontent.com、
+        // *.github.io 等子域都有同类整站规则，主站不应例外。）
+        ".*": {
+          sni: "baidu.com",
+        },
         "^(/[^/]+){2,}/?(\\?.*)?$": {
           tampermonkeyScript: "https://ds-official-config.bestar.de5.net/tampermonkey.js",
           script: "https://ds-official-config.bestar.de5.net/GithubEnhanced-High-Speed-Download.user.js",
@@ -44,13 +51,13 @@
         //},
         "^((/[^/]+){2,})/raw((/[^/]+)+\\.(jpg|jpeg|png|gif))(\\?.*)?$": {
           proxy: null,
-          sni: null,
+          sni: "baidu.com",
           cacheDays: 365,
           desc: "仓库内图片重定向，缓存1年。",
         },
         "^((/[^/]+){2,})/raw((/[^/]+)+\\.js)(\\?.*)?$": {
           proxy: null,
-          sni: null,
+          sni: "baidu.com",
           responseReplace: {
             headers: {
               "content-type": "application/javascript; charset=utf-8",
@@ -65,6 +72,11 @@
         },
       },
       "github.githubassets.com": {
+        // 整站 SNI 伪装：github.githubassets.com 是 GitHub 的 CSS/JS 静态资源域名，
+        // 同样会被按 SNI 阻断。官方配置里 GitHub 的子域都有同类规则，这里不应例外。
+        ".*": {
+          sni: "baidu.com",
+        },
         "/assets/fakefile.js": {
           success: {
             script: ";",
@@ -137,6 +149,26 @@
           sni: "www.google.cn",
         },
       },
+      "fonts.googleapis.com": {
+        ".*": {
+          proxy: "fonts.googleapis.cn",
+        },
+      },
+      "fonts.gstatic.com": {
+        ".*": {
+          proxy: "fonts-gstatic.proxy.ustclug.org",
+        },
+      },
+      "themes.googleapis.com": {
+        ".*": {
+          proxy: "themes.loli.net",
+        },
+      },
+      "themes.googleusercontent.com": {
+        ".*": {
+          proxy: "google-themes.proxy.ustclug.org",
+        },
+      },
       "ajax.googleapis.com": {
         ".*": {
           proxy: "ajax.proxy.ustclug.org",
@@ -166,6 +198,12 @@
           options: true,
         },
       },
+      "www.google.com": {
+        "/recaptcha/.*": {
+          proxy: "www.recaptcha.net",
+          desc: "reCAPTCHA 静态资源走国内镜像，与下方 www.gstatic.com 的同源规则配套",
+        },
+      },
       "www.gstatic.com": {
         "/recaptcha/.*": {
           proxy: "www.recaptcha.net",
@@ -189,6 +227,11 @@
       "login.docker.com": {
         ".*": {
           sni: "login.docker.com", // 配置它自己是为了覆盖 *.docker.com 中的SNI配置，此配置优先级更高
+        },
+        "/favicon.ico": {
+          proxy: "hub.docker.com",
+          sni: "baidu.com",
+          desc: "登录页面的ico，采用hub.docker.com的",
         },
       },
       "download.docker.com": {
