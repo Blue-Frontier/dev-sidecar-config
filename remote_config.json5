@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610051215, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "去除不可用谷歌css/fonts配置", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202610060145, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "修正 GitHub 注释拼写，恢复 reCAPTCHA 规则，移除老旧相关配置,添加测试x.com dockerhub chatgpt sci-hub 相关规则", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -22,7 +22,7 @@
   },
   server: {
     intercepts: {
-      // Github
+      // GitHub
       "github.com": {
         // 整站 SNI 伪装：中间网络按 SNI 阻断 github.com，上游 TLS 握手必须伪装成国内域名，
         // 否则 github.com 主站无法访问。（v2.x 的 internal 内置配置里有这条，2.3.0 起内置配置
@@ -160,6 +160,12 @@
           desc: "根据2026年4月24日时访问https://mirrors.ustc.edu.cn 的说明，修正internal v202604122348中指向ajax.lug.ustc.edu.cn的配置",
         },
       },
+      "www.google.com": {
+        "/recaptcha/.*": {
+          proxy: "www.recaptcha.net",
+          desc: "reCAPTCHA 静态资源走国内镜像，与下方 www.gstatic.com 的同源规则配套",
+        },
+      },
       "^(?!.*(translate-pa).google(?:apis|usercontent)?.com).*google(?:apis|usercontent)?.com$": {
         ".*": {
           sni: "www.google.cn",
@@ -183,12 +189,6 @@
           options: true,
         },
       },
-      "www.google.com": {
-        "/recaptcha/.*": {
-          proxy: "www.recaptcha.net",
-          desc: "reCAPTCHA 静态资源走国内镜像，与下方 www.gstatic.com 的同源规则配套",
-        },
-      },
       "www.gstatic.com": {
         "/recaptcha/.*": {
           proxy: "www.recaptcha.net",
@@ -201,37 +201,6 @@
           // 该域名 CNAME 到 prda.aadg.msidentity.com（微软 AAD），服务器返回的是 AAD 的证书，
           // 里面没有 ms-sso.copilot.microsoft.com，故显式指定用 AAD 的域名校验证书
           verifyHost: "graph.windows.net",
-        },
-      },
-      // Docker Hub
-      "www.docker.com": {
-        ".*": {
-          sni: "www.docker.com", // 配置它自己是为了覆盖 *.docker.com 中的SNI配置，此配置优先级更高
-        },
-      },
-      "login.docker.com": {
-        ".*": {
-          sni: "login.docker.com", // 配置它自己是为了覆盖 *.docker.com 中的SNI配置，此配置优先级更高
-        },
-        "/favicon.ico": {
-          proxy: "hub.docker.com",
-          sni: "baidu.com",
-          desc: "登录页面的ico，采用hub.docker.com的",
-        },
-      },
-      "download.docker.com": {
-        ".*": {
-          sni: "download.docker.com", // 配置它自己是为了覆盖 *.docker.com 中的SNI配置，此配置优先级更高
-        },
-      },
-      "hub.docker.com": {
-        ".*": {
-          sni: "none",
-        },
-      },
-      "*.docker.com": {
-        ".*": {
-          sni: "www.docker.com",
         },
       },
       // Pixiv
@@ -506,29 +475,6 @@
         "185.199.109.133": true,
         "185.199.110.133": true,
       },
-      // Docker Hub
-      "hub.docker.com": {
-        "144.34.172.106": true,
-        "69.63.207.139": false,
-        // 疑似源站IP
-        "47.236.233.96": false,
-        // 已失效的IP
-        "54.156.14.194": null,
-        "54.208.73.48": null,
-        "100.29.167.200": null,
-        "44.221.37.199": null,
-        "52.44.227.212": null,
-        "54.156.140.159": null,
-      },
-      "sessions-bugsnag.docker.com": {
-        "54.156.14.194": true,
-        "54.208.73.48": true,
-        "100.29.167.200": true,
-        // 已失效的IP
-        "44.221.37.199": null,
-        "52.44.227.212": null,
-        "54.156.140.159": null,
-      },
       // Pixiv
       "i.pximg.net": {
         "210.140.139.132": true,
@@ -580,12 +526,9 @@
           desc: "自动地区官方",
         },
       },
-      // usercontent.goog 是 googleusercontent.com 的 .goog 版，上面的规则匹配不到 .goog
-      // 2026-10-03实测：该域名的Google官方IP全部不可达（超时，或返回CN=invalid.invalid兜底证书），
-      // 只有这两个阿里云中转IP可用，返回真实Google证书链（CN=*.googleusercontent.com）
       "^(.*\\.)?usercontent\\.goog$": {
         "47.102.115.14": {
-          desc: "阿里云中转,日本,实测0.45s,首选",
+          desc: "阿里云中转,日本,实测0.45s,首选", // usercontent.goog 是 googleusercontent.com 的 .goog 版，上面的规则匹配不到 .goog
         },
         "8.137.102.117": {
           desc: "阿里云中转,新加坡,实测0.50s,备用",
@@ -724,6 +667,19 @@
         "23.51.62.114": true,
         "23.55.98.103": true,
       },
+      // X/Twitter
+      "*x.com": {
+				"172.67.172.22": true
+			},
+			"*twimg.com": {
+				"172.67.172.22": true
+			},
+			"*twitter.com": {
+				"172.67.172.22": true
+			},
+			"*t.co": {
+				"172.67.172.22": true
+			},
       //DuckDuckGo
       "external-content.duckduckgo.com": {
         "20.43.160.189": true,
@@ -807,10 +763,7 @@
         "*.jetbrains.com": "cf-DoT",
         "*.azureedge.net": "cf-DoT",
         "*.stackoverflow.com": "cf-DoT",
-        "*.github.com": "cf-DoT",
-        "*github*.com": "cf-DoT",
         "*.github.io": "cf-DoT",
-        "*.docker.com": "cf-DoT",
         "*.electronjs.org": "cf-DoT",
         "*.amazonaws.com": "cf-DoT",
         "*.yarnpkg.com": "cf-DoT",
@@ -827,10 +780,6 @@
         "*.onesignal.com": "cf-DoT",
         "*.iubenda.com": "cf-DoT",
         "*.brave.com": "cf-DoT",
-        "*duckduckgo.com": "cf-DoT",
-        // Gemini 图标 / Google API（bug #9）：用 quad9 避开 DNS 污染
-        "*.gstatic.com": "quad9",
-        "*.googleapis.com": "quad9",
       },
       // @since v2.0.2
       familyMapping: {
@@ -870,16 +819,7 @@
         interval: 60000,
         hostnameList: [
           "google.com",
-          "zh.wikipedia.org",
-          "steamgames.com",
-          "epicgames-download1-1251447533.file.myqcloud.com",
-          "store.steampowered.com",
-          "community.akamai.steamstatic.com",
-          "cdn.akamai.steamstatic.com",
-          "steamcdn-a.akamaihd.net",
-          "store.akamai.steamstatic.com",
-          "steamcommunity.com",
-          "api.steampowered.com",
+          "github.com",
         ],
         dnsProviders: ["cf-DoT", "safe360"],
       },
@@ -903,17 +843,26 @@
        */
       ech: {
         domains: [
-					"*.pixiv.net",
-					"pixiv.net",
-					"chatgpt.com",
+					"*t.co",
+					"*twitter.com",
+					"*twimg.com",
+					"*sci-hub.pub",
+					"*x.com",
+          "*docker.com",
+					"*pixiv.net",
+					"*chatgpt.com",
 					"*civitai.com",
-					"*.ldstatic.com",
+					"*ldstatic.com",
 					"civitai.com",
-					"*.linux.do",
-					"*.greasyfork.org"
+					"*linux.do",
+					"*greasyfork.org",
 				],
 				preSetIpDomains: [
-					"*.ldstatic.com"
+					"*ldstatic.com",
+          "*t.co",
+					"*twitter.com",
+					"*twimg.com",
+					"*x.com",
 				],
 			  dns: "cf-DoH",
         enabled: true,
@@ -926,6 +875,14 @@
         tryAllProviders: true,
         parallelDelay: 200,
       },
+      "nat64": {
+				"enabled": true,
+				"prefix": "2a01:4f8:c2c:123f:64:5::",
+				"domains": [
+					"*chatgpt.com"
+				],
+				"dns": "cf-DoH"
+			},
     },
     whiteList: {
       "*.icloud.com": true,
