@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610060150, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "去除自带nat64默认前缀需要用户自行查询", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202610060224, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "回退 78047f9 带回来的废弃 SNI 规则：移除 github.com 与 github.githubassets.com 的整站 SNI 伪装块，两条 raw 路径规则的 sni 恢复为 null（该批规则基于已否定的诊断，且诱饵 SNI 只在边缘容忍未知 SNI 时可用，参见复核报告）", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -24,13 +24,6 @@
     intercepts: {
       // GitHub
       "github.com": {
-        // 整站 SNI 伪装：中间网络按 SNI 阻断 github.com，上游 TLS 握手必须伪装成国内域名，
-        // 否则 github.com 主站无法访问。（v2.x 的 internal 内置配置里有这条，2.3.0 起内置配置
-        // 改为官方配置的镜像后被删除；而官方配置里 api.github.com、*.githubusercontent.com、
-        // *.github.io 等子域都有同类整站规则，主站不应例外。）
-        ".*": {
-          sni: "baidu.com",
-        },
         "^(/[^/]+){2,}/?(\\?.*)?$": {
           tampermonkeyScript: "https://ds-official-config.bestar.de5.net/tampermonkey.js",
           script: "https://ds-official-config.bestar.de5.net/GithubEnhanced-High-Speed-Download.user.js",
@@ -51,13 +44,13 @@
         //},
         "^((/[^/]+){2,})/raw((/[^/]+)+\\.(jpg|jpeg|png|gif))(\\?.*)?$": {
           proxy: null,
-          sni: "baidu.com",
+          sni: null,
           cacheDays: 365,
           desc: "仓库内图片重定向，缓存1年。",
         },
         "^((/[^/]+){2,})/raw((/[^/]+)+\\.js)(\\?.*)?$": {
           proxy: null,
-          sni: "baidu.com",
+          sni: null,
           responseReplace: {
             headers: {
               "content-type": "application/javascript; charset=utf-8",
@@ -72,11 +65,6 @@
         },
       },
       "github.githubassets.com": {
-        // 整站 SNI 伪装：github.githubassets.com 是 GitHub 的 CSS/JS 静态资源域名，
-        // 同样会被按 SNI 阻断。官方配置里 GitHub 的子域都有同类规则，这里不应例外。
-        ".*": {
-          sni: "baidu.com",
-        },
         "/assets/fakefile.js": {
           success: {
             script: ";",
