@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610050441, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "补回 GitHub 主站(github.com)与静态资源站(github.githubassets.com)的整站 SNI 伪装规则——v2.x 的 internal 内置配置里有、2.3.0 起内置配置改为官方配置镜像后丢失，导致 GitHub 无法访问；同时补回被同步冲掉的 Google Fonts/themes/reCAPTCHA 代理与 Docker 登录页图标规则", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202610051215, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "去除不可用谷歌css/fonts配置", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -152,21 +152,6 @@
       "fonts.googleapis.com": {
         ".*": {
           proxy: "fonts.googleapis.cn",
-        },
-      },
-      "fonts.gstatic.com": {
-        ".*": {
-          proxy: "fonts-gstatic.proxy.ustclug.org",
-        },
-      },
-      "themes.googleapis.com": {
-        ".*": {
-          proxy: "themes.loli.net",
-        },
-      },
-      "themes.googleusercontent.com": {
-        ".*": {
-          proxy: "google-themes.proxy.ustclug.org",
         },
       },
       "ajax.googleapis.com": {
