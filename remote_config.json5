@@ -24,13 +24,6 @@
     intercepts: {
       // GitHub
       "github.com": {
-        // 整站 SNI 伪装：中间网络按 SNI 阻断 github.com，上游 TLS 握手必须伪装成国内域名，
-        // 否则 github.com 主站无法访问。（v2.x 的 internal 内置配置里有这条，2.3.0 起内置配置
-        // 改为官方配置的镜像后被删除；而官方配置里 api.github.com、*.githubusercontent.com、
-        // *.github.io 等子域都有同类整站规则，主站不应例外。）
-        ".*": {
-          sni: "baidu.com",
-        },
         "^(/[^/]+){2,}/?(\\?.*)?$": {
           tampermonkeyScript: "https://ds-official-config.bestar.de5.net/tampermonkey.js",
           script: "https://ds-official-config.bestar.de5.net/GithubEnhanced-High-Speed-Download.user.js",
@@ -51,13 +44,13 @@
         //},
         "^((/[^/]+){2,})/raw((/[^/]+)+\\.(jpg|jpeg|png|gif))(\\?.*)?$": {
           proxy: null,
-          sni: "baidu.com",
+          sni: null,
           cacheDays: 365,
           desc: "仓库内图片重定向，缓存1年。",
         },
         "^((/[^/]+){2,})/raw((/[^/]+)+\\.js)(\\?.*)?$": {
           proxy: null,
-          sni: "baidu.com",
+          sni: null,
           responseReplace: {
             headers: {
               "content-type": "application/javascript; charset=utf-8",
@@ -72,11 +65,6 @@
         },
       },
       "github.githubassets.com": {
-        // 整站 SNI 伪装：github.githubassets.com 是 GitHub 的 CSS/JS 静态资源域名，
-        // 同样会被按 SNI 阻断。官方配置里 GitHub 的子域都有同类规则，这里不应例外。
-        ".*": {
-          sni: "baidu.com",
-        },
         "/assets/fakefile.js": {
           success: {
             script: ";",
