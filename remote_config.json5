@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610091425, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "修复zlib配置未补全的问题", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202610092300, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "修复Github sni伪装配置被意外删除的问题,移植了Wikipedia Reddit的访问规则,修正规范了一些规则的拼写", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -25,6 +25,7 @@
       // GitHub
       "github.com": {
         "^(/[^/]+){2,}/?(\\?.*)?$": {
+          sni: "baidu.com",
           tampermonkeyScript: "https://ds-official-config.bestar.de5.net/tampermonkey.js",
           script: "https://ds-official-config.bestar.de5.net/GithubEnhanced-High-Speed-Download.user.js",
           remark: "注：上面所使用的脚本地址，为高速镜像地址。",
@@ -43,20 +44,21 @@
         //  }
         //},
         "^((/[^/]+){2,})/raw((/[^/]+)+\\.(jpg|jpeg|png|gif))(\\?.*)?$": {
-          proxy: null,
-          sni: null,
+          sni: "baidu.com",
           cacheDays: 365,
           desc: "仓库内图片重定向，缓存1年。",
         },
         "^((/[^/]+){2,})/raw((/[^/]+)+\\.js)(\\?.*)?$": {
-          proxy: null,
-          sni: null,
+          sni: "baidu.com",
           responseReplace: {
             headers: {
               "content-type": "application/javascript; charset=utf-8",
             },
           },
           desc: "仓库内脚本，设置响应头Content-Type。作用：方便script拦截器直接使用，避免引起跨域问题和脚本内容限制问题。",
+        },
+        ".*":{
+          sni: "baidu.com",
         },
       },
       "api.github.com": {
@@ -73,19 +75,8 @@
         },
         "^(/[^/]+)*/[^./]+\\.(svg|png|gif|jpg|jpeg|ico|js|css)(\\?.*)?$": {
           cacheDays: 365,
-          desc: "图片、JS文件、CSS文件，缓存1年",
-        },
-        ".*.backup": {
-          desc: "github.com域名下，该请求已经不存在，此配置暂时先备份掉。",
-          proxy: "github.com",
           sni: "baidu.com",
-          responseReplace: {
-            headers: {
-              "access-control-allow-origin": "*",
-              "cross-origin-resource-policy": "cross-origin",
-              "set-cookie": "[remove]",
-            },
-          },
+          desc: "图片、JS文件、CSS文件，缓存1年",
         },
       },
       "opengraph.githubassets.com": {
@@ -288,10 +279,49 @@
           "sni": "baidu.com"
         }
       },
+      //Wikipedia
+      "upload.wikimedia.org": {
+				"208.80.153.240": true,
+				"185.15.58.240": true,
+			},
+			"^.*(wikipedia|wikimedia|wikinews|wiktionary|wikiversity|wikidata|wikiquote|wikivoyage|wikifunctions).org$": {
+				"208.80.153.224": true,
+				"185.15.58.224": true,
+			},
+			"*w.wiki":{
+				"208.80.153.224": true,
+				"185.15.58.224": true,
+			},
+      //Reddit
+      "*reddit.com": {
+        ".*": {
+          "sni": "baidu.com",
+        },
+      },
+      "*redditstatic.com": {
+        ".*": {
+          "sni": "baidu.com",
+        },
+      },
+      "redd.it": {
+        ".*": {
+          "redirect": "www.reddit.com",
+        },
+      },
+      "*redd.it": {
+        ".*": {
+          "sni": "baidu.com",
+        },
+      },
+      "*redditmedia.com": {
+        ".*": {
+          "sni": "baidu.com",
+        },
+      },
       //Steam
       "*steamcommunity.com": {
         "^(?!/discussions|/Profile|/app.*/discussions).*$": {
-          sni: "www.baidu.com",
+          sni: "baidu.com",
           desc: "讨论区锁区,考虑不拦截丢给彩蛋",
         },
       },
@@ -303,36 +333,36 @@
       },
       "*.steampowered.com": {
         ".*": {
-          sni: "www.baidu.com",
+          sni: "baidu.com",
         },
       },
       //DuckDuckGo
       "external-content.duckduckgo.com": {
         ".*": {
-          sni: "www.baidu.com",
+          sni: "baidu.com",
         },
       },
       "*duckduckgo.com": {
         ".*": {
-          sni: "www.baidu.com",
+          sni: "baidu.com",
         },
       },
       //OneDrive
       //Dropbox
       "*dropbox.com": {
         ".*": {
-          sni: "www.baidu.com",
+          sni: "baidu.com",
         },
       },
       //f-droid
       "*f-droid.org": {
         ".*": {
-          sni: "www.baidu.com",
+          sni: "baidu.com",
         },
       },
       "fdroid.org": {
         ".*": {
-          sni: "www.baidu.com",
+          sni: "baidu.com",
         },
       },
       //apkmirrors
@@ -636,6 +666,30 @@
       },
       "*z-lib.help": {
         "176.123.7.105": true,
+      },
+      //Wikipedia
+      "^.*(wikipedia|wikimedia|wikinews|wiktionary|wikiversity|wikidata|wikiquote|wikivoyage|wikifunctions|wikibooks).org$": {
+				".*": {
+				  sni: "mediawiki.org",
+				},
+			},
+			"*w.wiki":{
+				".*": {
+				  sni: "mediawiki.org",
+				},
+			},
+      //Reddit
+      "*reddit.com": {
+        "146.75.33.140": true,
+      },
+      "*redditstatic.com": {
+        "146.75.33.140": true,
+      },
+      "*redd.it": {
+        "146.75.33.140": true,
+      },
+      "*redditmedia.com": {
+        "146.75.33.140": true,
       },
       //Steam
       "community.cloudflare.steamstatic.com": {
