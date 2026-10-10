@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610092300, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "修复Github sni伪装配置被意外删除的问题,移植了Wikipedia Reddit的访问规则,修正规范了一些规则的拼写", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202610102055, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "修复Wikipedia配置错位的问题", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -280,17 +280,15 @@
         }
       },
       //Wikipedia
-      "upload.wikimedia.org": {
-				"208.80.153.240": true,
-				"185.15.58.240": true,
-			},
-			"^.*(wikipedia|wikimedia|wikinews|wiktionary|wikiversity|wikidata|wikiquote|wikivoyage|wikifunctions).org$": {
-				"208.80.153.224": true,
-				"185.15.58.224": true,
+      "^.*(wikipedia|wikimedia|wikinews|wiktionary|wikiversity|wikidata|wikiquote|wikivoyage|wikifunctions|wikibooks).org$": {
+				".*": {
+				  sni: "mediawiki.org",
+				},
 			},
 			"*w.wiki":{
-				"208.80.153.224": true,
-				"185.15.58.224": true,
+				".*": {
+				  sni: "mediawiki.org",
+				},
 			},
       //Reddit
       "*reddit.com": {
@@ -668,15 +666,17 @@
         "176.123.7.105": true,
       },
       //Wikipedia
-      "^.*(wikipedia|wikimedia|wikinews|wiktionary|wikiversity|wikidata|wikiquote|wikivoyage|wikifunctions|wikibooks).org$": {
-				".*": {
-				  sni: "mediawiki.org",
-				},
+      "upload.wikimedia.org": {
+				"208.80.153.240": true,
+				"185.15.58.240": true,
+			},
+			"^.*(wikipedia|wikimedia|wikinews|wiktionary|wikiversity|wikidata|wikiquote|wikivoyage|wikifunctions).org$": {
+				"208.80.153.224": true,
+				"185.15.58.224": true,
 			},
 			"*w.wiki":{
-				".*": {
-				  sni: "mediawiki.org",
-				},
+				"208.80.153.224": true,
+				"185.15.58.224": true,
 			},
       //Reddit
       "*reddit.com": {
