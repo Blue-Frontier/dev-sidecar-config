@@ -16,7 +16,7 @@
  * @homepageURL		https://github.com/XIU2/UserScript
  * @sourceURL		https://github.com/XIU2/UserScript/blob/master/GithubEnhanced-High-Speed-Download.user.js
  */
-const ds_github_monkey_version = "2.6.38_1_20260715";
+const ds_github_monkey_version = "2.6.41_1_20261010";
 document.addEventListener("DOMContentLoaded", () => {
 	const DS_init = (window.__ds_global__ || {})['DS_init']
 	if (typeof DS_init === 'function') {
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (window.onurlchange === undefined) addUrlChangeEvent();
 		window.addEventListener('urlchange', function() {
 			colorMode(); // 适配白天/夜间主题模式
-			if (location.pathname.indexOf('/releases')) addRelease(); // Release 加速
+			if (location.pathname.indexOf('/releases') > -1) addRelease(); // Release 加速
 			setTimeout(addRawFile, 1000); // Raw 加速
 			setTimeout(addRawDownLink, 2000); // Raw 单文件快捷下载（☁），延迟 2 秒执行，避免被 pjax 刷掉
 			setTimeout(addRawDownLink_, 1000); // 在浏览器返回/前进时重新添加 Raw 下载链接（☁）鼠标事件
@@ -241,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						if (target.tagName === 'DIV' && target.dataset.viewComponent === 'true' && target.classList[0] === 'Box') addRelease();
 					}
 				}
-			} else if (document.querySelector('#repository-container-header:not([hidden])')) { // 项目首页
+			} else if (document.querySelector('#repo-title-component, #repository-container-header:not([hidden])')) { // 项目首页
 				for (const mutation of mutationsList) {
 					for (const target of mutation.addedNodes) {
 						if (target.nodeType !== 1) return
