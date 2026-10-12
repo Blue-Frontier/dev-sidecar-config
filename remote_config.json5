@@ -844,6 +844,9 @@
         "*.onesignal.com": "cf-DoT",
         "*.iubenda.com": "cf-DoT",
         "*.brave.com": "cf-DoT",
+        // VSCode 扩展市场/资产 CDN（gallerycdn.vsassets.io 等子域都在 vsassets.io 下），
+        // 加进默认 DNS 加速映射，否则 VSCode 装扩展会卡死（docmirror/dev-sidecar#666）。
+        "*.vsassets.io": "cf-DoT",
       },
       // @since v2.0.2
       familyMapping: {
@@ -877,6 +880,8 @@
         // 对应上面 mapping 里新增的两条（值与既有条目一致，用字符串）
         "*.gstatic.com": "4",
         "*.googleapis.com": "4",
+        // 与上面 dns.mapping 的 *.vsassets.io 对应（值与既有条目一致）
+        "*.vsassets.io": "4",
       },
       speedTest: {
         enabled: true, // GUI「IP测速」开关的初始值；缺省时开关显示为未勾选，但内核实际仍在测速
