@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610122340, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "修复部分规则匹配过宽的问题", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202610161505, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "恢复了gist.github.com, OneDrive配置 新增archive.org的部分支持;优化了docker相关域名的配置，减少了误判范围;修改cf-doh的sni baidu.com为字符串cf使其可用;添加ech对medium.com, v2ex.com, openai.com, civitai.red的支持", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -112,6 +112,11 @@
           sni: "baidu.com",
         },
       },
+      "gist.github.com": {
+        ".*": {
+          "sni": "baidu.com"
+        }
+      },
       "*.gravatar.com": {
         ".*": {
           sni: "baidu.com",
@@ -177,6 +182,22 @@
         "/recaptcha/.*": {
           proxy: "www.recaptcha.net",
         },
+      },
+      //DockerHub
+      "docker.io": {
+        ".*": {
+          "sni": "baidu.com"
+        }
+      },
+      "^(registry-1|index)\\.docker\\.io$": {
+        ".*": {
+          "sni": "baidu.com"
+        }
+      },
+      "^(cloud|go|goto|id)\\.docker\\.com$": {
+        ".*": {
+          "sni": "goto.docker.com"
+        }
       },
       // Microsoft
       "ms-sso.copilot.microsoft.com": {
@@ -346,6 +367,11 @@
         },
       },
       //OneDrive
+      "*onedrive.live.com": {
+        ".*": {
+          "sni": "baidu.com"
+        }
+      },
       //Dropbox
       "*dropbox.com": {
         ".*": {
@@ -374,6 +400,12 @@
         ".*": {
           sni: "claude.ai",
         },
+      },
+      //Web Archive
+      "*archive.org": {
+        ".*": {
+          "sni": "baidu.com"
+        }
       },
       // DS_DOWNLOAD配置
       "jsd.proxy.aks.moe": {
@@ -470,23 +502,11 @@
         "20.200.245.247": true,
         "20.27.177.113": true,
         "20.205.243.166": true,
-        "20.26.156.215": false,
-        "20.87.245.0": false,
-        "4.237.22.38": false,
-        "20.201.28.151": false,
-        "140.82.113.3": false,
-        "140.82.114.4": false,
-        "140.82.116.3": false,
-        "140.82.116.4": false,
-        "140.82.121.3": false,
-        "140.82.121.4": false,
       },
       "gist.github.com": {
+        "20.205.243.166": true,
+        "140.82.121.3": true,
         "20.27.177.113": true,
-        "20.200.245.247": true,
-        "20.205.243.166": false,
-        "140.82.116.3": true,
-        "140.82.116.4": true,
         "4.237.22.38": true,
       },
       "github.dev": {
@@ -781,6 +801,13 @@
       "*.claude.ai": {
         "2a01:4f8:c2c:123f:64:5:a04f:680a": true,
       },
+      //Web Archive
+      "web-static.archive.org": {
+        "207.241.237.2": true
+      },
+      "*archive.org": {
+        "207.241.237.3": true
+      },
       //其它站点
       "cdn.jsdelivr.net": {
         "104.16.89.20": true,
@@ -808,7 +835,7 @@
         },
         "cf-DoH": {
           "server": "https://cloudflare-dns.com/dns-query",
-          "sni": "baidu.com",
+          "sni": "cf",
         },
         "quad9-ip": {
           "server": "https://9.9.9.9/dns-query",
@@ -821,6 +848,7 @@
         },
       },
       mapping: {
+        "*docker*": "cf-DoH",
         "*.xn--ngstr-lra8j.com": "bebasid",
         "*.googlevideo.com": "bebasid",
         "*.gvt1.com": "bebasid",
@@ -836,7 +864,6 @@
         "img.shields.io": "cf-DoT",
         "*.vuepress.vuejs.org": "cf-DoT",
         "*.gh.docmirror.top": "cf-DoT",
-        "*.v2ex.com": "cf-DoT",
         "*.pypi.org": "cf-DoT",
         // Pixiv站点相关
         "*.pixiv.org": "cf-DoT",
@@ -850,6 +877,7 @@
       },
       // @since v2.0.2
       familyMapping: {
+        "*docker*": "4",
         "*.xn--ngstr-lra8j.com": "6",
         "*.googlevideo.com": "6",
         "*.gvt1.com": "6",
@@ -859,7 +887,6 @@
         "*.github.com": "4",
         "*github*.com": "4",
         "*.github.io": "4",
-        "*.docker.com": "4",
         "*.electronjs.org": "4",
         "*.amazonaws.com": "4",
         "*.yarnpkg.com": "4",
@@ -868,7 +895,6 @@
         "img.shields.io": "4",
         "*.vuepress.vuejs.org": "4",
         "*.gh.docmirror.top": "4",
-        "*.v2ex.com": "4",
         "*.pypi.org": "4",
         // Pixiv站点相关
         "*.pixiv.org": "4",
@@ -917,10 +943,15 @@
 					"*twimg.com",
 					"*sci-hub.pub",
 					"^(.+\.)?x\.com$",
-          "*docker.com",
+          *medium.com",
+          "*v2ex.com",
+          "auth.docker.io",
+          "hub.docker.com",
 					"*pixiv.net",
+          "*openai.com",
 					"*chatgpt.com",
 					"*civitai.com",
+          "*civitai.red",
 					"*ldstatic.com",
 					"civitai.com",
 					"*linux.do",
@@ -948,7 +979,8 @@
 				"enabled": true,
 				"prefix": "",
 				"domains": [
-					"*chatgpt.com"
+					"*chatgpt.com",
+          "*openai.com",
 				],
 				"dns": "cf-DoH"
 			},
@@ -1063,7 +1095,6 @@
         "*.nodejs.org": true,
         "*.npmjs.com": true,
         "*.wikimedia.org": true,
-        "*.v2ex.com": true,
         "*.azureedge.net": true,
         "*.cloudfront.net": true,
         "*.bing.com": true,
