@@ -943,7 +943,7 @@
 					"*twimg.com",
 					"*sci-hub.pub",
 					"^(.+\.)?x\.com$",
-          *medium.com",
+          "*medium.com",
           "*v2ex.com",
           "auth.docker.io",
           "hub.docker.com",
