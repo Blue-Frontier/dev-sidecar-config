@@ -114,7 +114,7 @@
       },
       "gist.github.com": {
         ".*": {
-          "sni": "baidu.com"
+          "sni": "baidu.com",
         }
       },
       "*.gravatar.com": {
@@ -186,18 +186,18 @@
       //DockerHub
       "docker.io": {
         ".*": {
-          "sni": "baidu.com"
-        }
+          "sni": "baidu.com",
+        },
       },
       "^(registry-1|index)\\.docker\\.io$": {
         ".*": {
-          "sni": "baidu.com"
-        }
+          "sni": "baidu.com",
+        },
       },
       "^(cloud|go|goto|id)\\.docker\\.com$": {
         ".*": {
-          "sni": "goto.docker.com"
-        }
+          "sni": "goto.docker.com",
+        },
       },
       // Microsoft
       "ms-sso.copilot.microsoft.com": {
@@ -369,8 +369,8 @@
       //OneDrive
       "*onedrive.live.com": {
         ".*": {
-          "sni": "baidu.com"
-        }
+          "sni": "baidu.com",
+        },
       },
       //Dropbox
       "*dropbox.com": {
@@ -404,8 +404,8 @@
       //Web Archive
       "*archive.org": {
         ".*": {
-          "sni": "baidu.com"
-        }
+          "sni": "baidu.com",
+        },
       },
       // DS_DOWNLOAD配置
       "jsd.proxy.aks.moe": {
@@ -803,10 +803,10 @@
       },
       //Web Archive
       "web-static.archive.org": {
-        "207.241.237.2": true
+        "207.241.237.2": true,
       },
       "*archive.org": {
-        "207.241.237.3": true
+        "207.241.237.3": true,
       },
       //其它站点
       "cdn.jsdelivr.net": {
