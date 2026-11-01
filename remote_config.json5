@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202610281230, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-      updateLog: "测试antigravity.google", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
+      version: 202611011034, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+      updateLog: "为 42 条依赖 SNI 伪装的规则显式声明 unVerifySsl: true（内核 #745 移除隐式免校验），GitHub 系等改用真实域名校验", // 知道大家不喜欢写commit msg，所以这个字段让agent修改的时候意识到得明确写上更新内容
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -105,6 +105,7 @@
         },
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       "*.github.io": {
@@ -120,11 +121,13 @@
       "*.gravatar.com": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       "*.windows.net": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       // Google
@@ -136,6 +139,7 @@
       "*.googleapis.com": {
         ".*": {
           sni: "www.google.cn",
+          unVerifySsl: true,
         },
       },
       "fonts.googleapis.com": {
@@ -158,23 +162,27 @@
       "^(?!.*(translate-pa).google(?:apis|usercontent)?.com).*google(?:apis|usercontent)?.com$": {
         ".*": {
           sni: "www.google.cn",
+          unVerifySsl: true,
           desc: "部分需要走其它代理的服务",
         },
       },
       "^.*(youtube.com|gstatic.com|youtube.nocookie.com|youtu.be|ggpht.com|i.ytimg.com|blogger.com|doodles.google|about.google|android.com|antigravity.google)$": {
         ".*": {
           sni: "www.google.cn",
+          unVerifySsl: true,
         },
       },
       "^.*\\.google\\.com(\\.\\w+)?$": {
         ".*": {
           sni: "www.google.cn",
+          unVerifySsl: true,
         },
       },
       "^(?<pre>.*).googlevideo.com$": {
         ".*": {
           proxy: "${pre}.xn--ngstr-lra8j.com",
           sni: "g.cn",
+          unVerifySsl: true,
           options: true,
         },
       },
@@ -187,16 +195,19 @@
       "docker.io": {
         ".*": {
           "sni": "baidu.com",
+          unVerifySsl: true,
         },
       },
       "^(registry-1|index)\\.docker\\.io$": {
         ".*": {
           "sni": "baidu.com",
+          unVerifySsl: true,
         },
       },
       "^(cloud|go|goto|id)\\.docker\\.com$": {
         ".*": {
           "sni": "goto.docker.com",
+          unVerifySsl: true,
         },
       },
       // Microsoft
@@ -212,16 +223,19 @@
       "*.pixiv.org": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       "*.pximg.net": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       "*.nikke-global.com": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       "i.pximg.net": {
@@ -239,26 +253,31 @@
       "*.youtube.com": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       "*.youtu.be": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       "*.youtube-nocookie.com": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       "*.ggpht.com": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       "i.ytimg.com": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       // jsdelivr
@@ -281,6 +300,7 @@
       "update.greasyfork.org": {
         ".*": {
           "sni": "baidu.com",
+          unVerifySsl: true,
         },
       },
       // vueJS
@@ -292,34 +312,40 @@
       //Z-lib
       "*z-library.sk": {
         ".*": {
-          "sni": "baidu.com"
+          "sni": "baidu.com",
+          unVerifySsl: true,
         }
       },
       "*z-lib.help": {
         ".*": {
-          "sni": "baidu.com"
+          "sni": "baidu.com",
+          unVerifySsl: true,
         }
       },
       //Wikipedia
       "^.*(wikipedia|wikimedia|wikinews|wiktionary|wikiversity|wikidata|wikiquote|wikivoyage|wikifunctions|wikibooks).org$": {
 				".*": {
 				  sni: "mediawiki.org",
+				  unVerifySsl: true,
 				},
 			},
 			"*w.wiki":{
 				".*": {
 				  sni: "mediawiki.org",
+				  unVerifySsl: true,
 				},
 			},
       //Reddit
       "*reddit.com": {
         ".*": {
           "sni": "baidu.com",
+          unVerifySsl: true,
         },
       },
       "*redditstatic.com": {
         ".*": {
           "sni": "baidu.com",
+          unVerifySsl: true,
         },
       },
       "redd.it": {
@@ -330,23 +356,27 @@
       "*redd.it": {
         ".*": {
           "sni": "baidu.com",
+          unVerifySsl: true,
         },
       },
       "*redditmedia.com": {
         ".*": {
           "sni": "baidu.com",
+          unVerifySsl: true,
         },
       },
       //Steam
       "*steamcommunity.com": {
         "^(?!/discussions|/Profile|/app.*/discussions).*$": {
           sni: "baidu.com",
+          unVerifySsl: true,
           desc: "讨论区锁区,考虑不拦截丢给彩蛋",
         },
       },
       "^(?!.*cloudflare).*steamstatic.com$": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
           desc: "steam社区数据不能也不需调整sni,直接直连",
         },
       },
@@ -359,40 +389,47 @@
       "external-content.duckduckgo.com": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       "*duckduckgo.com": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       //OneDrive
       "*onedrive.live.com": {
         ".*": {
           "sni": "baidu.com",
+          unVerifySsl: true,
         },
       },
       //Dropbox
       "*dropbox.com": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       //f-droid
       "*f-droid.org": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       "fdroid.org": {
         ".*": {
           sni: "baidu.com",
+          unVerifySsl: true,
         },
       },
       //apkmirrors
       "*apkmirror.com": {
         ".*": {
           sni: "none",
+          unVerifySsl: true,
         },
       },
       //Claude.ai
@@ -405,6 +442,7 @@
       "*archive.org": {
         ".*": {
           "sni": "baidu.com",
+          unVerifySsl: true,
         },
       },
       // DS_DOWNLOAD配置
@@ -478,21 +516,25 @@
       "*.instagram.com": {
         ".*": {
           sni: "g.cn",
+          unVerifySsl: true,
         },
       },
       "*.cdninstagram.com": {
         ".*": {
           sni: "g.cn",
+          unVerifySsl: true,
         },
       },
       "*.intercom.io": {
         ".*": {
           sni: "g.cn",
+          unVerifySsl: true,
         },
       },
       "*startpage.com": {
         ".*": {
           sni: "www.baidu.com",
+          unVerifySsl: true,
         },
       },
     },
