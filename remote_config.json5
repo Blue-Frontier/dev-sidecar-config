@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202611021101, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-        updateLog: "新增 Grok（grok.com / grok.ai / x.ai）的预设 IP 与 ECH 规则，与 X/Twitter 保持一致",
+      version: 202611021113, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+        updateLog: "新增 Grok（grok.com / grok.ai / x.ai）的 ECH 规则；这几个域名地址轮换频繁，不设预设 IP，全部走 ECH 动态解析",
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -802,13 +802,6 @@
 			"*twitter.com": {
 				"172.67.172.22": true
 			},
-        // Grok
-        "*grok.com": {
-  				"104.18.28.234": true
-  			},
-  			"*grok.ai": {
-  				"76.223.54.146": true
-  			},
 			"*t.co": {
 				"172.67.172.22": true
 			},
@@ -1011,6 +1004,7 @@
 					"*linux.do",
 					"greasyfork.org",
             "*grok.com",
+            "*grok.ai",
             "*x.ai",
 				],
 				preSetIpDomains: [
@@ -1019,8 +1013,7 @@
 					"*twitter.com",
 					"*twimg.com",
 					"^(.+\\.)?x\\.com$",
-  					"*grok.com",
-				],
+  					],
 			  dns: "cf-DoH",
         enabled: true,
         use: true,
