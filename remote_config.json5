@@ -7,8 +7,8 @@
     metaInfo: {
       // 元数据就放在这里了
       id: "official", // 配置id：id区分大小写，只能带有大小写字母、数字、点号与横杠，应当具有说明作用（所以不许用一串数字/乱码代替）
-      version: 202611031515, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
-        updateLog: "新增 ech.sharedConfig：随配置下发共享 ECH 配置，供无法访问加密 DNS 的网络使用",
+      version: 202611120035, // 格式是GMT+8的开始编辑时间，固定位数为年月日+时分;一天有1440分钟，够用了；这就是个number,可以用来比较，别加引号
+        updateLog: "gist.github.com 补充 verifyHost：改写 SNI 后按 github.com 校验证书，修复 ERR_TLS_CERT_ALTNAME_INVALID",
       // dev-sidecar从2.0.2开始内置的配置是internal，这里是official
       // 第三方配置应使用Java风格id,即发布网站域名的倒序，但严禁使用com.example之类的烂大街id（com.example保留为示范用途）
       // 同理禁止使用com.github/com.gitee/com.gitcode/io.github等大概率托管多个配置的网站域名倒序
@@ -116,6 +116,9 @@
       "gist.github.com": {
         ".*": {
           "sni": "baidu.com",
+          // 用 baidu.com 的 SNI 敲门时，GitHub 边缘返回的是 github.com 的证书；
+          // 不声明 verifyHost 会按真实域名校验，报 ERR_TLS_CERT_ALTNAME_INVALID
+          "verifyHost": "github.com",
         }
       },
       "*.gravatar.com": {
